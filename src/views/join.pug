@@ -1,0 +1,33 @@
+extends templates/layout
+
+block content
+  if joinSuccess
+    h2 #{userinfo.username} (#{userinfo.name}) 님, 가입을 환영합니다.
+    small
+      span(id="countnum") 0
+      span 초 후 홈 화면으로 이동합니다.
+    script.
+      let num = 5;
+      const countnum = document.querySelector("#countnum");
+      countnum.innerText = num.toString();
+      const counter = setInterval(() => { 
+        num -= 1;
+        countnum.innerText = num.toString();
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(counter);
+        window.location = "/"; 
+      }, 5000);  
+  else
+    if errMsg
+      small #{errMsg}  
+    form(method="POST")
+      if userinfo 
+        input(name="username", type="text", value=`${userinfo.username}`, placeholder="Username" required)
+        input(name="name", type="text", value=`${userinfo.name}`, placeholder="name" required)    
+      else
+        input(name="username", type="text", placeholder="Username" required)
+        input(name="name", type="text", placeholder="name" required)
+      input(name="password", type="password", placeholder="Password" required)
+      input(name="passwordconfirm", type="password", placeholder="Password Confirm" required)
+      input(type="submit", value="Join")

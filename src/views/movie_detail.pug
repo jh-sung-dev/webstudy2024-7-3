@@ -1,0 +1,17 @@
+extend templates/layout
+include mixin/movie
+
+block content
+    div
+        +movieinfo(videoinfo)
+    div 
+        nav 
+            ul
+                li 
+                    a(href=`${backURL}`) Back →               
+                li 
+                    a(href=`/movies/${videoinfo._id}/edit`) Edit →   
+                li 
+                    a(href=`/movies/${videoinfo._id}/delete`) Delete →   
+                
+

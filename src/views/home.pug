@@ -1,0 +1,13 @@
+extends templates/layout
+
+block content
+  if user 
+    h2 Welcome! - #{user.username} 
+  h1 Add your magic here
+  div 
+    ul 
+      each videoinfo in videos 
+        li 
+          a(href=`/movies/${videoinfo._id}`) #{videoinfo.title}
+      else 
+        li No Contents.

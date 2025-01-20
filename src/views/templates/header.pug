@@ -1,0 +1,17 @@
+h2 #{pageTitle}
+nav
+    ul 
+        li 
+            a(href="/") Home
+        li 
+            a(href="/upload") Upload 
+        li 
+            a(href="/search") Search
+        if loggedIn 
+            li 
+                a(href="/logout") Log out
+        else 
+            li 
+                a(href="/login") Login
+            li 
+                a(href="/join") Join
