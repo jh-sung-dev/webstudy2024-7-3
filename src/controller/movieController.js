@@ -9,13 +9,13 @@ import Movie from "../models/Movie";
 // Add your magic here!
 
 // /: DB에 있는 모든 영화의 제목이 나열된 홈 페이지 (GET)
-export const home = async (req, res) => {
-  const tmp = await Movie.find();
-  return res.render("home", {
-    pageTitle: "MOVIE Home",
-    videos: tmp,
-  });
-};
+// export const home = async (req, res) => {
+//   const tmp = await Movie.find();
+//   return res.render("home", {
+//     pageTitle: "MOVIE Home",
+//     videos: tmp,
+//   });
+// };
 
 // /upload: 영화를 생성하는 Form이 있는 페이지 (GET), 생성한 영화를 DB에 저장 (POST)
 export const movieUploadForm = (req, res) => {

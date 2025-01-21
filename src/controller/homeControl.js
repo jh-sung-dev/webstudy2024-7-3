@@ -1,9 +1,11 @@
-import Video from "../models/Movie";
+import Movie from "../models/Movie";
+import Video from "../models/Video";
+
 
 export const homeControl = async (req, res) => {
-  const tmp = await Video.find();
+  const tmp = await Video.find({});
   return res.render("home", {
-    pageTitle: "MOVIE Home",
+    pageTitle: "Video Home",
     videos: tmp,
   });
 };
