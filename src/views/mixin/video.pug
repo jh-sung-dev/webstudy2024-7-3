@@ -3,4 +3,4 @@ mixin videoinfo(info)
     h4 Description
     div #{info.description}
     h4 Hashtags
-    div #{info.hashtags}
+    div #{info.hashtags.map(elem => `#${elem}`).join()}

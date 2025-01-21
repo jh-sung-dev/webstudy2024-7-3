@@ -8,29 +8,37 @@ export const videoUploadForm = (req, res) => {
 };
 export const videoUploadHandle = async (req, res) => {
   const { title, description, hashtags } = req.body;
-  const videoinfo = {
-    title,
-    description,
-    createdAt: Date.now(),
-    hashtags: hashtags
-      .split(",")
-      .map((elem) => elem.trim())
-      .filter((elem) => elem !== "" && elem !== undefined && elem !== null),
-    meta: {
-      views: 0,
-      rating: 0,
-    },
-  };
-  await Video.create(videoinfo);
-  return res.redirect("/");
+  try {
+    const videoinfo = {
+      title,
+      description,
+      hashtags: hashtags
+        .split(",")
+        .map((elem) => elem.trim())
+        .filter((elem) => elem !== "" && elem !== undefined && elem !== null),
+    };
+    await Video.create(videoinfo);
+    return res.redirect("/");
+  } catch (err) {
+    return res.render("video_upload_form", {
+      pageTitle: "Video Upload",
+      errorMessage: err._message,
+    });
+  }
 };
 
 // /movies/:id: 영화 상세 정보 페이지 (GET)
 export const videoDetailHandle = async (req, res) => {
   const result = await Video.findById({ _id: req.params.id });
-  return res.render("video_detail", {
-    pageTitle: "Video Detail",
-    videoinfo: result,
+  if (result) {
+    return res.render("video_detail", {
+      pageTitle: "Video Detail",
+      videoinfo: result,
+      backURL: req.headers.referer || "/",
+    });
+  }
+  return res.render("404", {
+    pageTitle: "Video Not Found",
     backURL: req.headers.referer || "/",
   });
 };
@@ -38,9 +46,15 @@ export const videoDetailHandle = async (req, res) => {
 // /movies/:id/edit: 영화를 편집하는 Form이 있는 페이지 (GET), 편집한 영화를 DB에 저장 (POST)
 export const videoEditForm = async (req, res) => {
   const result = await Video.findById({ _id: req.params.id });
-  return res.render("video_edit_form", {
-    pageTitle: "Video Edit",
-    videoinfo: result,
+  if (result) {
+    return res.render("video_edit_form", {
+      pageTitle: "Video Edit",
+      videoinfo: result,
+    });
+  }
+  return res.render("404", {
+    pageTitle: "Video Not Found",
+    backURL: req.headers.referer || "/",
   });
 };
 export const videoEditHandle = async (req, res) => {

@@ -9,5 +9,7 @@ block content
       each videoinfo in videos 
         li 
           a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}
+          p #{videoinfo.description}
+          small #{videoinfo.createdAt}
       else 
         li No Contents.

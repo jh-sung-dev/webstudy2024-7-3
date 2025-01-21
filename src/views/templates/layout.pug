@@ -8,6 +8,8 @@ html(lang="en")
     link(rel="stylesheet", href="/static/css/styles.css")
     title #{pageTitle} | #{siteTitle}
   body
+    if errorMessage
+      span #{errorMessage}
     header
       include header.pug       
     main

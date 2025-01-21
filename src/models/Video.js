@@ -11,14 +11,14 @@ WE NEED TO SHARE THE SAME DB SO NICO CAN CHECK OUT EVERYBODYS PROJECT.
 const YOUR_USERNAME = "jhsung20241230"; //null;
 
 const videoSchema = mongoose.Schema({
-  title: String,
-  description: String,
-  createdAt: Date,
+  title: { type: String, required: true, trim: true, maxLength: 40 },
+  description: { type: String, required: true, trim: true, maxLength: 80 },
+  createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String }],
   meta: {
-    views: Number,
-    rating: Number
-  }
+    views: { type: Number, required: true, default: 0 },
+    rating: { type: Number, required: true, default: 0 },
+  },
 });
 
 if (YOUR_USERNAME === null || typeof YOUR_USERNAME !== "string") {

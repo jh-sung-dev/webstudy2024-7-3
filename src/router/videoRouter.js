@@ -11,14 +11,20 @@ import {
 
 const videoRouter = express.Router();
 
-videoRouter.route("/videos/upload").get(videoUploadForm).post(videoUploadHandle);
+videoRouter
+  .route("/videos/upload")
+  .get(videoUploadForm)
+  .post(videoUploadHandle);
 
 videoRouter.get("/videos/search", videoSearchHandle);
 
-videoRouter.get("/videos/:id", videoDetailHandle);
+videoRouter.get("/videos/:id([0-9a-f]{24})", videoDetailHandle);
 
-videoRouter.route("/videos/:id/edit").get(videoEditForm).post(videoEditHandle);
+videoRouter
+  .route("/videos/:id([0-9a-f]{24})/edit")
+  .get(videoEditForm)
+  .post(videoEditHandle);
 
-videoRouter.get("/videos/:id/delete", videoDeleteHandle);
+videoRouter.get("/videos/:id([0-9a-f]{24})/delete", videoDeleteHandle);
 
 export default videoRouter;
