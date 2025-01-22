@@ -152,6 +152,6 @@ export const changePasswordSubmit = async (req, res, next) => {
     return res.status(400).render("change-password", { pageTitle: "Change Password", errMsg: "The password does not match" })    
   }
   await user.save();
-  req.session.user.password = user.password
+  
   return res.redirect("/logout");
 }
