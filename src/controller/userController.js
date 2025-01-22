@@ -111,9 +111,47 @@ export const logoutHandle = (req, res) => {
 };
 
 export const editFormHandle = (req, res) => {
+  console.log(res.locals.user)
   return res.render("edit-profile", { pageTitle: "Edit Profile", userinfo: res.locals.user });
 };
 
 export const editSubmitHandle = async (req, res) => {
-  return res.end();
+  const { session: { user: { _id } }, body: { name, email, username, location } } = req;
+  /*
+  await User.findByIdAundUpdate(_id, { name, email, username, location });
+  req.session.user = {
+    ...req.session.user,
+    name,
+    email,
+    username,
+    locaion
+    };
+  //*/
+  const result = await User.findByIdAndUpdate(_id, { name, email, username, location }, { new: true });
+  req.session.user = result;
+  return res.redirect("/edit");
 };
+
+export const changePasswordFrom = (req, res, next) => {
+  return res.render("change-password", { pageTitle: "Change Password" });
+}
+export const changePasswordSubmit = async (req, res, next) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, newPassword, newPasswordConfirm },
+  } = req;
+  
+  const user = await User.findById(_id);
+  const result = await bcrypt.compare(oldPassword, user.password);
+  if (!result) {
+    return res.status(400).render("change-password", { pageTitle: "Change Password", errMsg: "Current Password is incorrect" })
+  }
+  if (newPassword !== newPasswordConfirm) {
+    return res.status(400).render("change-password", { pageTitle: "Change Password", errMsg: "The password does not match" })    
+  }
+  await user.save();
+  req.session.user.password = user.password
+  return res.redirect("/logout");
+}

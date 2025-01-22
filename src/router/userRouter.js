@@ -1,5 +1,7 @@
 import express from "express";
 import {
+  changePasswordFrom,
+  changePasswordSubmit,
   editFormHandle,
   editSubmitHandle,
   //homeHandle,
@@ -42,5 +44,7 @@ userRouter
   .all(protectorMiddleware)
   .get(editFormHandle)
   .post(editSubmitHandle);
+
+userRouter.route("/change-password").all(protectorMiddleware).get(changePasswordFrom).post(changePasswordSubmit);
 
 export default userRouter;

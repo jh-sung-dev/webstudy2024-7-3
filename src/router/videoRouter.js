@@ -25,6 +25,6 @@ videoRouter
   .get(videoEditForm)
   .post(videoEditHandle);
 
-videoRouter.get("/videos/:id([0-9a-f]{24})/delete", videoDeleteHandle);
+videoRouter.route("/videos/:id([0-9a-f]{24})/delete").get(videoDeleteHandle);
 
 export default videoRouter;
