@@ -34,9 +34,10 @@ export const joinFormHandle = (req, res) => {
 
 // form에는 오류 (wrong password(비밀번호가 틀렸습니다.), wrong password confirmation(비밀번호가 일치하지 않습니다.), username already taken(이미 사용 중인 사용자이름입니다.))가 표시되어야 합니다.
 export const joinSubmitHandle = async (req, res) => {
-  console.log("Join - POST");
-  console.log(req.body);
-  const { username, name, password, passwordconfirm } = req.body;
+  // console.log("Join - POST");
+  // console.log(req.body);
+  const { username, name, email, password, passwordconfirm, location } =
+    req.body;
 
   if (password !== passwordconfirm) {
     return res.status(400).render("join", {
@@ -55,7 +56,7 @@ export const joinSubmitHandle = async (req, res) => {
     });
   }
 
-  await User.create({ username, name, password });
+  await User.create({ username, name, email, password, location });
   //return res.status(200).redirect("/");
   return res.status(200).render("join", {
     pageTitle: "Join",
@@ -103,7 +104,8 @@ export const loginSubmitHandle = async (req, res) => {
 // logout
 export const logoutHandle = (req, res) => {
   //console.log("Log out");
-  req.session.loggedIn = false;
-  req.session.user = null;
+  //req.session.loggedIn = false;
+  //req.session.user = null;
+  req.session.destroy();
   return res.redirect("/");
 };

@@ -15,8 +15,10 @@ const YOUR_USERNAME = "jhsung20241230"; //null;
 // username은 반드시 unique해야 합니다.
 const UserSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
+  location: { type: String, default: "" },
 });
 
 if (YOUR_USERNAME === null || typeof YOUR_USERNAME !== "string") {
