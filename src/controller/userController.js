@@ -12,17 +12,17 @@ import bcrypt from "bcrypt";
 // userController와 userRouter를 완성하세요.
 // .pug 파일도 만들어야 합니다.
 
-export const homeHandle = (req, res) => {
-  //console.log("Home", res.locals.loggedIn);
-  // User.find({}).then((r) => console.log(r)); //For test
-  if (!res.locals.loggedIn) {
-    return res.redirect("/login");
-  }
+// export const homeHandle = (req, res) => {
+//   //console.log("Home", res.locals.loggedIn);
+//   // User.find({}).then((r) => console.log(r)); //For test
+//   if (!res.locals.loggedIn) {
+//     return res.redirect("/login");
+//   }
 
-  return res.render("home", {
-    pageTitle: "Home",
-  });
-};
+//   return res.render("home", {
+//     pageTitle: "Home",
+//   });
+// };
 
 // Join
 export const joinFormHandle = (req, res) => {
@@ -108,4 +108,12 @@ export const logoutHandle = (req, res) => {
   //req.session.user = null;
   req.session.destroy();
   return res.redirect("/");
+};
+
+export const editFormHandle = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit Profile", userinfo: res.locals.user });
+};
+
+export const editSubmitHandle = async (req, res) => {
+  return res.end();
 };

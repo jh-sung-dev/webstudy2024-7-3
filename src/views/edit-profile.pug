@@ -1,0 +1,9 @@
+extends templates/layout
+
+block content
+    form(method="POST")
+      input(name="username", type="text", value=`${userinfo.username}`, placeholder="Username" required)
+      input(name="name", type="text", value=`${userinfo.name}`, placeholder="name" required)    
+      input(name="email", type="email", value=`${userinfo.email}`, placeholder="name" required)    
+      input(name="location", type="text", placeholder="Location")
+      input(type="submit", value="Update")
