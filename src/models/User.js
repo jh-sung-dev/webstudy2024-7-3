@@ -21,7 +21,7 @@ const UserSchema = mongoose.Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
   location: { type: String, default: "" },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, required: true, ref: `Comment_${YOUR_USERNAME}` }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: `Comment_${YOUR_USERNAME}` }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: `Video_${YOUR_USERNAME}` }],
 });
 

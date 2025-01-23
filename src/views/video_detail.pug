@@ -18,7 +18,8 @@ block content
             a(href=`/videos/${videoinfo._id}/delete`) Delete →
   div.video__comments 
     form.video_comment-form#commentFrom(action="")
-      textarea#(name="")
+      textarea(cors="30", rows="10", placeholder="Write a comment")
+      button Add Comment
 
 block scripts 
   script(src="/static/js/videoPlayer.js")
