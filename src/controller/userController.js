@@ -76,6 +76,7 @@ export const logoutHandle = (req, res) => {
 };
 
 export const editFormHandle = (req, res) => {
+  console.log(res.locals.user)
   return res.render("edit-profile", {
     pageTitle: "Edit Profile",
     userinfo: res.locals.user,

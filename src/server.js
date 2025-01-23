@@ -4,8 +4,9 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import mainRouter from "./router/mainRouter";
 import userRouter from "./router/userRouter";
-import { localsMiddleware } from "./middlewares";
 import videoRouter from "./router/videoRouter";
+import apiRouter from "./router/apiRouter";
+import { localsMiddleware } from "./middlewares";
 
 export const serverStart = (portNumber) => {
   const server = express();
@@ -26,15 +27,15 @@ export const serverStart = (portNumber) => {
     })
   );
 
-  server.use("/static", express.static("assets"));
-
   server.use(localsMiddleware);
-
+  
   server.use("/uploads", express.static("uploads"));
-
+  server.use("/static", express.static("assets"));
+  
   server.use(mainRouter);
   server.use(userRouter);
   server.use(videoRouter);
+  server.use(apiRouter);
 
   server.listen(portNumber, () => {
     console.log("✅  Server Ready! ... ", portNumber);

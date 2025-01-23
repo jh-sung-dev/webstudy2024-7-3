@@ -5,6 +5,6 @@ mixin showvideolist(list)
         li 
           a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}
           p #{videoinfo.description}
-          small #{videoinfo.createdAt}
+          small views #{videoinfo.meta.views}
       else 
         li No Contents.

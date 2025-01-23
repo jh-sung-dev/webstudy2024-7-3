@@ -32,7 +32,6 @@ export const videoUploadHandle = async (req, res) => {
     user.save();
     return res.redirect("/");
   } catch (err) {
-    console.log(err);
     return res.render("video_upload_form", {
       pageTitle: "Video Upload",
       errMsg: err._message,
@@ -43,7 +42,6 @@ export const videoUploadHandle = async (req, res) => {
 // /movies/:id: 영화 상세 정보 페이지 (GET)
 export const videoDetailHandle = async (req, res) => {
   const result = await Video.findById({ _id: req.params.id }).populate("owner");
-  console.log(result);
   if (result) {
     return res.render("video_detail", {
       pageTitle: "Video Detail",
@@ -77,10 +75,10 @@ export const videoEditForm = async (req, res) => {
 export const videoEditHandle = async (req, res) => {
   const { title, description, hashtags, file } = req.body;
   const result = await Video.findOne({ _id: req.params.id });
-  console.log(result);
-  return res.end();
+  //console.log(result);
+  //return res.end();
   await Video.findByIdAndUpdate(req.params.id, {
-    fileUrl: file.path,
+    fileUrl: file ? file.path : result.fileUrl,
     title,
     description,
     hashtags: hashtags
@@ -94,19 +92,25 @@ export const videoEditHandle = async (req, res) => {
 // /movies/:id/delete: 영화 삭제 (GET)
 export const videoDeleteHandle = async (req, res) => {
   const {
-    param: { id },
+    params: { id },
     session: {
       user: { _id },
     },
   } = req;
-  const video = await Video.findById(id);
+
+  const video = await Video.findById({ _id: id });
+  const user = await User.findOne({ _id });
+
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video Not found." });
   }
-  if (String(result.owner) !== String(_id)) {
+  if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
   await Video.deleteOne({ _id: id });
+  await User.findByIdAndUpdate(_id, {
+    videos: user.videos.filter((elem) => String(elem) !== String(id)),
+  });
   return res.redirect("/");
 };
 
@@ -119,4 +123,15 @@ export const videoSearchHandle = async (req, res) => {
     pageTitle: "Search",
     videos,
   });
+};
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views = video.meta.views + 1;
+  await video.save();
+  return res.sendStatus(200);
 };

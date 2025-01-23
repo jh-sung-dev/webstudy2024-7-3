@@ -1,6 +1,63 @@
 @use '_variables' as myVars;
 
-// body {
-//     background-color: myVars.$red;
-//     color: myVars.$color;    
-// }
+body {
+    background-color: myVars.$bg;
+    color: myVars.$color;    
+}
+
+#videoContainer {
+  width: 700px;
+  position: relative;
+}
+
+.videoControllerNormal {
+  display: flex;
+  background-color: rgb(129, 129, 129);
+  border-radius: 4px;
+  height: 50px;
+  align-items: center;
+}
+
+.videoControllerFull {
+  position: absolute;
+  bottom: 100px;
+  left: 10%;
+  display: flex;
+  background-color: rgb(129, 129, 129);
+  border-radius: 4px;
+  height: 50px;
+  align-items: center;
+  z-index: 1000;
+  width: 80%;
+}
+
+#videoController > * {
+  margin-left: 20px;
+}
+
+#volume {
+  width: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+#timeline {
+  flex-grow: 0.9;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+#fullScreenBtn {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.videoFullScreen {
+  width: 100%;
+}
+
+#playPauseBtn {
+  width: 12px;
+}

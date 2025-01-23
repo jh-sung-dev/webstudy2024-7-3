@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 html(lang="en")
   head
+    title #{pageTitle} | #{siteTitle}
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
     link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.7.4/mvp.css")
     link(rel="stylesheet" href="/static/css/styles.css")
-    title #{pageTitle} | #{siteTitle}
+    script(src="https://kit.fontawesome.com/ec6a20518c.js" crossorigin="anonymous", defer)
   body
     if errMsg
       div
@@ -15,4 +16,6 @@ html(lang="en")
       include menu       
     main
       block content
-  block scripts
+
+    script(src="/static/js/main.js")  
+    block scripts
