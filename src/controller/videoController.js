@@ -35,7 +35,7 @@ export const videoUploadHandle = async (req, res) => {
     console.log(err);
     return res.render("video_upload_form", {
       pageTitle: "Video Upload",
-      errorMessage: err._message,
+      errMsg: err._message,
     });
   }
 };

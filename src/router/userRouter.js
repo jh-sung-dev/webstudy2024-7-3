@@ -26,7 +26,7 @@ const userRouter = express.Router();
 
 // /join: 이 route는 계정을 만들기 위해 form을 렌더 해야 합니다. (GET, POST)
 userRouter
-  .route("/join")
+  .route("/user/join")
   .all(publicOnlyMiddleware)
   .get(joinFormHandle)
   .post(joinSubmitHandle);
@@ -45,13 +45,13 @@ userRouter
 userRouter.route("/logout").get(protectorMiddleware, logoutHandle);
 
 userRouter
-  .route("/edit")
+  .route("/user/edit")
   .all(protectorMiddleware)
   .get(editFormHandle)
   .post(uploadAvatarFiles.single("avatar"), editSubmitHandle);
 
 userRouter
-  .route("/change-password")
+  .route("/user/change-password")
   .all(protectorMiddleware)
   .get(changePasswordFrom)
   .post(changePasswordSubmit);

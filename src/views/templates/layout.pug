@@ -8,11 +8,11 @@ html(lang="en")
     link(rel="stylesheet" href="/static/css/styles.css")
     title #{pageTitle} | #{siteTitle}
   body
-    if errorMessage
+    if errMsg
       div
-        span #{errorMessage}
+        span #{errMsg}
     header
-      include header.pug       
+      include menu       
     main
       block content
   block scripts
