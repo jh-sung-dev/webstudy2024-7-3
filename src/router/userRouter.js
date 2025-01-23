@@ -10,8 +10,13 @@ import {
   loginFormHandle,
   loginSubmitHandle,
   logoutHandle,
+  userProfile,
 } from "../controller/userController";
-import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
+import {
+  protectorMiddleware,
+  publicOnlyMiddleware,
+  uploadAvatarFiles,
+} from "../middlewares";
 
 const userRouter = express.Router();
 
@@ -43,8 +48,14 @@ userRouter
   .route("/edit")
   .all(protectorMiddleware)
   .get(editFormHandle)
-  .post(editSubmitHandle);
+  .post(uploadAvatarFiles.single("avatar"), editSubmitHandle);
 
-userRouter.route("/change-password").all(protectorMiddleware).get(changePasswordFrom).post(changePasswordSubmit);
+userRouter
+  .route("/change-password")
+  .all(protectorMiddleware)
+  .get(changePasswordFrom)
+  .post(changePasswordSubmit);
+
+userRouter.route("/user/:id").get(userProfile);
 
 export default userRouter;

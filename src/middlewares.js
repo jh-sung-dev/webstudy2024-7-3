@@ -23,12 +23,12 @@ export const publicOnlyMiddleware = (req, res, next) => {
   }   
 }
 
-export const uploadFiles = multer({
-  dest: "uploads/",
-  limits: {
-    fileSize: 1 * 1024 * 1024, // 1MB Limit
-  },
-});
+// export const uploadFiles = multer({
+//   dest: "uploads/",
+//   limits: {
+//     fileSize: 5 * 1024 * 1024, // 5MB Limit
+//   },
+// });
 
 export const uploadError = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
@@ -37,3 +37,17 @@ export const uploadError = (err, req, res, next) => {
   }
   next(err);
 };
+
+export const uploadAvatarFiles = multer({
+  dest: "uploads/avatar/",
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB Limit
+  },
+});
+
+export const uploadVideoFiles = multer({
+  dest: "uploads/video/",
+  limits: {
+    fileSize: 100 * 1024 * 1024, // 100MB Limit
+  },
+});

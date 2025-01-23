@@ -1,0 +1,5 @@
+extend templates/layout
+include mixin/showvideolist
+
+block content 
+    +showvideolist(user.videos)

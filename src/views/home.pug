@@ -1,15 +1,8 @@
 extends templates/layout
+include mixin/showvideolist
 
 block content
   if user 
     h2 Welcome! - #{user.username} 
   h1 Add your magic here
-  div 
-    ul 
-      each videoinfo in videos 
-        li 
-          a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}
-          p #{videoinfo.description}
-          small #{videoinfo.createdAt}
-      else 
-        li No Contents.
+  +showvideolist(videos)

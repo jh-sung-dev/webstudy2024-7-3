@@ -32,6 +32,8 @@ export const serverStart = (portNumber) => {
 
   server.use(localsMiddleware);
 
+  server.use("/uploads", express.static("uploads"))
+
   server.use(mainRouter);
   server.use(userRouter);
   server.use(movieRouter);

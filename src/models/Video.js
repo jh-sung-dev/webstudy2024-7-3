@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import USERNAME from "./dbpostfix";
 
 /*
 PLEASE ADD YOUR USERNAME IN THIS LINE.
@@ -8,10 +9,11 @@ PLEASE FOLLOW THIS STEP
 WE NEED TO SHARE THE SAME DB SO NICO CAN CHECK OUT EVERYBODYS PROJECT.
 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 */
-const YOUR_USERNAME = "jhsung20241230"; //null;
+const YOUR_USERNAME = USERNAME; //"jhsung20241230"; //null;
 
 const videoSchema = mongoose.Schema({
   title: { type: String, required: true, trim: true, maxLength: 40 },
+  fileUrl: { type: String, required: true },
   description: { type: String, required: true, trim: true, maxLength: 80 },
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String }],
@@ -19,6 +21,7 @@ const videoSchema = mongoose.Schema({
     views: { type: Number, required: true, default: 0 },
     rating: { type: Number, required: true, default: 0 },
   },
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: `User_${YOUR_USERNAME}` },
 });
 
 if (YOUR_USERNAME === null || typeof YOUR_USERNAME !== "string") {

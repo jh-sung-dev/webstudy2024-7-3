@@ -9,6 +9,8 @@ nav
             a(href="/videos/search") Search
         if loggedIn 
             li 
+                a(href=`/user/${user._id}`) My Profile
+            li 
                 a(href="/edit") Edit Profile
             li 
                 a(href="/logout") Log out

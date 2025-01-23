@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import USERNAME from "./dbpostfix";
 
 /*
 PLEASE ADD YOUR USERNAME IN THIS LINE.
@@ -8,7 +9,7 @@ PLEASE FOLLOW THIS STEP
 WE NEED TO SHARE THE SAME DB SO NICO CAN CHECK OUT EVERYBODYS PROJECT.
 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 */
-const YOUR_USERNAME = "jhsung20241230"; //null;
+const YOUR_USERNAME = USERNAME;//"jhsung20241230"; //null;
 
 const MovieSchema = mongoose.Schema({
   title: {

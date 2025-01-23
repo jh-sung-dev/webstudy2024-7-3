@@ -5,6 +5,7 @@ So import User from "./models"; will work!
 You can do User.find() or whatever you need like normal!
 */
 import User from "../models/User";
+import Video from "../models/Video";
 import bcrypt from "bcrypt";
 
 // Add your magic here!
@@ -111,12 +112,21 @@ export const logoutHandle = (req, res) => {
 };
 
 export const editFormHandle = (req, res) => {
-  console.log(res.locals.user)
-  return res.render("edit-profile", { pageTitle: "Edit Profile", userinfo: res.locals.user });
+  //console.log(res.locals.user);
+  return res.render("edit-profile", {
+    pageTitle: "Edit Profile",
+    userinfo: res.locals.user,
+  });
 };
 
 export const editSubmitHandle = async (req, res) => {
-  const { session: { user: { _id } }, body: { name, email, username, location } } = req;
+  const {
+    session: {
+      user: { _id, avatarUrl },
+    },
+    body: { name, email, username, location },
+    file,
+  } = req;
   /*
   await User.findByIdAundUpdate(_id, { name, email, username, location });
   req.session.user = {
@@ -127,14 +137,24 @@ export const editSubmitHandle = async (req, res) => {
     locaion
     };
   //*/
-  const result = await User.findByIdAndUpdate(_id, { name, email, username, location }, { new: true });
+  const result = await User.findByIdAndUpdate(
+    _id,
+    {
+      avatarUrl: file ? file.path : avatarUrl,
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
   req.session.user = result;
   return res.redirect("/edit");
 };
 
 export const changePasswordFrom = (req, res, next) => {
   return res.render("change-password", { pageTitle: "Change Password" });
-}
+};
 export const changePasswordSubmit = async (req, res, next) => {
   const {
     session: {
@@ -142,16 +162,33 @@ export const changePasswordSubmit = async (req, res, next) => {
     },
     body: { oldPassword, newPassword, newPasswordConfirm },
   } = req;
-  
+
   const user = await User.findById(_id);
   const result = await bcrypt.compare(oldPassword, user.password);
   if (!result) {
-    return res.status(400).render("change-password", { pageTitle: "Change Password", errMsg: "Current Password is incorrect" })
+    return res.status(400).render("change-password", {
+      pageTitle: "Change Password",
+      errMsg: "Current Password is incorrect",
+    });
   }
   if (newPassword !== newPasswordConfirm) {
-    return res.status(400).render("change-password", { pageTitle: "Change Password", errMsg: "The password does not match" })    
+    return res.status(400).render("change-password", {
+      pageTitle: "Change Password",
+      errMsg: "The password does not match",
+    });
   }
+  user.password = newPassword;
   await user.save();
-  
+
   return res.redirect("/logout");
-}
+};
+
+export const userProfile = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
+  }
+  //const videos = await Video.find({ owner: user._id });
+  return res.render("userProfile", { pageTitle: "User Profile", user });
+};

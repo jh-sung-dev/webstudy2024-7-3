@@ -8,13 +8,14 @@ import {
   videoDeleteHandle,
   videoSearchHandle,
 } from "../controller/videoController";
+import { uploadFiles, uploadVideoFiles } from "../middlewares";
 
 const videoRouter = express.Router();
 
 videoRouter
   .route("/videos/upload")
   .get(videoUploadForm)
-  .post(videoUploadHandle);
+  .post(uploadVideoFiles.single("videofile"), videoUploadHandle);
 
 videoRouter.get("/videos/search", videoSearchHandle);
 
