@@ -1,4 +1,3 @@
-import Movie from "../models/Movie";
 import Video from "../models/Video";
 
 

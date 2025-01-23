@@ -19,18 +19,16 @@ block content
         window.location = "/"; 
       }, 5000);  
   else
-    if errMsg
-      small #{errMsg}  
     form(method="POST")
       if userinfo 
-        input(name="username", type="text", value=`${userinfo.username}`, placeholder="Username" required)
-        input(name="name", type="text", value=`${userinfo.name}`, placeholder="name" required)    
-        input(name="email", type="email", value=`${userinfo.email}`, placeholder="name" required)    
+        input(name="username", type="text", value=`${userinfo.username}`, placeholder="Username", required)
+        input(name="name", type="text", value=`${userinfo.name}`, placeholder="name", required)    
+        input(name="email", type="email", value=`${userinfo.email}`, placeholder="name", required)    
       else
-        input(name="username", type="text", placeholder="Username" required)
-        input(name="name", type="text", placeholder="Name" required)
-        input(name="email", type="email", placeholder="Email" required)
-      input(name="password", type="password", placeholder="Password" required)
-      input(name="passwordconfirm", type="password", placeholder="Password Confirm" required)
+        input(name="username", type="text", placeholder="Username", required)
+        input(name="name", type="text", placeholder="Name", required)
+        input(name="email", type="email", placeholder="Email", required)
+      input(name="password", type="password", placeholder="Password", required)
+      input(name="passwordconfirm", type="password", placeholder="Password Confirm", required)
       input(name="location", type="text", placeholder="Location")
       input(type="submit", value="Join")

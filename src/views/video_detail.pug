@@ -2,19 +2,19 @@ extend templates/layout
 include mixin/video
 
 block content
-    div
-        +videoinfo(videoinfo)
-        small Uploaded by 
-            a(href=`/user/${videoinfo.owner._id}`) #{videoinfo.owner.name}
-    div 
-        nav 
-            ul
-                li 
-                    a(href=`${backURL}`) Back →               
-                if user && (String(videoinfo.owner._id) === String(user._id))
-                    li 
-                        a(href=`/videos/${videoinfo._id}/edit`) Edit →   
-                    li 
-                        a(href=`/videos/${videoinfo._id}/delete`) Delete →   
-                
+  div
+    +videoinfo(videoinfo)
+    small Uploaded by 
+      a(href=`/user/${videoinfo.owner._id}`) #{videoinfo.owner.name}
+  div 
+    nav 
+      ul
+        li 
+          a(href=`${backURL}`) Back →               
+        if user && (String(videoinfo.owner._id) === String(user._id))
+          li 
+            a(href=`/videos/${videoinfo._id}/edit`) Edit →   
+          li 
+            a(href=`/videos/${videoinfo._id}/delete`) Delete →   
+
 

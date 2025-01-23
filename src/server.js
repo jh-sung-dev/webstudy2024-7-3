@@ -5,9 +5,7 @@ import MongoStore from "connect-mongo";
 import mainRouter from "./router/mainRouter";
 import userRouter from "./router/userRouter";
 import { localsMiddleware } from "./middlewares";
-import movieRouter from "./router/movieRouter";
 import videoRouter from "./router/videoRouter";
-import { mongo } from "mongoose";
 
 export const serverStart = (portNumber) => {
   const server = express();
@@ -32,11 +30,10 @@ export const serverStart = (portNumber) => {
 
   server.use(localsMiddleware);
 
-  server.use("/uploads", express.static("uploads"))
+  server.use("/uploads", express.static("uploads"));
 
   server.use(mainRouter);
   server.use(userRouter);
-  server.use(movieRouter);
   server.use(videoRouter);
 
   server.listen(portNumber, () => {

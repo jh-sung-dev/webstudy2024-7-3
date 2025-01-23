@@ -1,8 +1,8 @@
 mixin videoinfo(info)
-    h1 #{info.title}
-    video(src="/" + info.fileUrl, controls)
-    div
-        p=info.description
-        small=info.createdAt
-    h4 Hashtags
-    div #{info.hashtags.map(elem => `#${elem}`).join()}
+  h1 #{info.title}
+  video(src="/" + info.fileUrl, controls)
+  div
+    p=info.description
+    small=info.createdAt
+  h4 Hashtags
+  div #{info.hashtags.map(elem => `#${elem}`).join()}

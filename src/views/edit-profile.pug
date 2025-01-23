@@ -1,14 +1,14 @@
 extends templates/layout
 
 block content
-    img(src=userinfo.avatarUrl, width="100", height="100")
-    form(method="POST", enctype="multipart/form-data")
-      label(for="avatar") Avatar
-      input(type="file", id="avatar", name="avatar", accept="image/*")
-      input(name="username", type="text", value=`${userinfo.username}`, placeholder="Username" required)
-      input(name="name", type="text", value=`${userinfo.name}`, placeholder="name" required)    
-      input(name="email", type="email", value=`${userinfo.email}`, placeholder="name" required)    
-      input(name="location", type="text", value=`${userinfo.location}`, placeholder="Location")
-      input(type="submit", value="Update")
-      hr
-      a(href="change-password") Change Password
+  img(src=userinfo.avatarUrl, width="100" height="100")
+  form(method="POST" enctype="multipart/form-data")
+    label(for="avatar") Avatar
+    input(type="file", id="avatar", name="avatar", accept="image/*")
+    input(name="username", type="text", value=`${userinfo.username}`, placeholder="Username", required)
+    input(name="name", type="text", value=`${userinfo.name}`, placeholder="name", required)    
+    input(name="email", type="email", value=`${userinfo.email}`, placeholder="name", required)    
+    input(name="location", type="text", value=`${userinfo.location}`, placeholder="Location")
+    input(type="submit", value="Update")
+    hr
+    a(href="change-password") Change Password

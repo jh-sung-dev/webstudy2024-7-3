@@ -2,7 +2,4 @@ extends templates/layout
 include mixin/showvideolist
 
 block content
-  if user 
-    h2 Welcome! - #{user.username} 
-  h1 Add your magic here
   +showvideolist(videos)

@@ -1,10 +1,10 @@
 mixin showvideolist(list)
-    div 
-        ul 
-            each videoinfo in list 
-                li 
-                    a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}
-                    p #{videoinfo.description}
-                    small #{videoinfo.createdAt}
-            else 
-                li No Contents.
+  div 
+    ul 
+      each videoinfo in list 
+        li 
+          a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}
+          p #{videoinfo.description}
+          small #{videoinfo.createdAt}
+      else 
+        li No Contents.
