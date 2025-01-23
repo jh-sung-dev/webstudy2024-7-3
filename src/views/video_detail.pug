@@ -16,8 +16,10 @@ block content
             a(href=`/videos/${videoinfo._id}/edit`) Edit →   
           li 
             a(href=`/videos/${videoinfo._id}/delete`) Delete →
+  div.video__comments 
+    form.video_comment-form#commentFrom(action="")
+      textarea#(name="")
 
 block scripts 
   script(src="/static/js/videoPlayer.js")
-
-
+  script(src="/static/js/commentSection.js")

@@ -11,18 +11,19 @@ WE NEED TO SHARE THE SAME DB SO NICO CAN CHECK OUT EVERYBODYS PROJECT.
 */
 const YOUR_USERNAME = USERNAME; //"jhsung20241230"; //null;
 
-const videoSchema = mongoose.Schema({
-  title: { type: String, required: true, trim: true, maxLength: 40 },
-  fileUrl: { type: String, required: true },
-  description: { type: String, required: true, trim: true, maxLength: 80 },
-  createdAt: { type: Date, required: true, default: Date.now },
-  hashtags: [{ type: String }],
-  meta: {
-    views: { type: Number, required: true, default: 0 },
-    rating: { type: Number, required: true, default: 0 },
+const commentSchema = mongoose.Schema({
+  text: { type: String, required: true },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: `User_${YOUR_USERNAME}`,
   },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, required: true, ref: `Comment_${YOUR_USERNAME}` }],
-  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: `User_${YOUR_USERNAME}` },
+  video: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: `Video_${YOUR_USERNAME}`,
+  },
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 if (YOUR_USERNAME === null || typeof YOUR_USERNAME !== "string") {
@@ -40,6 +41,6 @@ if (YOUR_USERNAME.includes("@")) {
   throw Error("❌  Please remove the @ from your username  ❌");
 }
 
-const model = mongoose.model(`Video_${YOUR_USERNAME}`, videoSchema);
+const model = mongoose.model(`Comment_${YOUR_USERNAME}`, commentSchema);
 
 export default model;
