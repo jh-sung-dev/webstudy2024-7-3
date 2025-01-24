@@ -19,8 +19,6 @@ if (form) {
   const textarea = form?.querySelector("textarea");
   const btn = form?.querySelector("button");
 
-  console.log(form, textarea, btn, videocontainer.dataset.videoid);
-
   const videoid = videocontainer.dataset.videoid;
 
   btn?.addEventListener("click", async (event) => {

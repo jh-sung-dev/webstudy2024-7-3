@@ -1,5 +1,3 @@
-console.log("video player");
-
 const video = document.querySelector("video");
 const videoController = document.getElementById("videoController");
 const psBtn = videoController.querySelector("#playPauseBtn");

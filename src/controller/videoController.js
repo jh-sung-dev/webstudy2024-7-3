@@ -78,8 +78,6 @@ export const videoEditForm = async (req, res) => {
 export const videoEditHandle = async (req, res) => {
   const { title, description, hashtags, file } = req.body;
   const result = await Video.findOne({ _id: req.params.id });
-  //console.log(result);
-  //return res.end();
   await Video.findByIdAndUpdate(req.params.id, {
     fileUrl: file ? file.path : result.fileUrl,
     title,
@@ -146,13 +144,10 @@ export const commentHandle = async (req, res) => {
   } = req;
   const bodyResult = JSON.parse(req.body);
   if (String(id) === String(bodyResult.videoid)) {
-    console.log(user, id, bodyResult.videoid, bodyResult.text);
-
     const video = await Video.findById(id);
     if (!video) {
       return res.sendStatus(404);
     }
-
     const comment = await Comment.create({
       text: bodyResult.text,
       owner: user._id,
