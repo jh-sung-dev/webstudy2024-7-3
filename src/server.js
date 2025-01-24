@@ -15,6 +15,8 @@ export const serverStart = (portNumber) => {
   server.set("views", process.cwd() + "/src/views");
 
   server.use(bodyParser.urlencoded({ extended: true }));
+  server.use(bodyParser.json());
+  server.use(bodyParser.text());
 
   server.use(
     session({

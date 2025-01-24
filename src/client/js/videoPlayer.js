@@ -100,8 +100,8 @@ fullScreenBtn.addEventListener("click", handleFullScreen);
 addEventListener("keydown", (event) => {
   if (event.code === "Space") {
     handlePlayAndStop();
-  } else if (event.code === "KeyF") {
-    enterFullScreen();
+  // } else if (event.code === "KeyF") {
+  //   enterFullScreen();
   } else if (event.code === "Escape") {
     exitFullScreen();
   }

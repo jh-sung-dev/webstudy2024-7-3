@@ -1,5 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 // /upload: 영화를 생성하는 Form이 있는 페이지 (GET), 생성한 영화를 DB에 저장 (POST)
 export const videoUploadForm = (req, res) => {
@@ -41,7 +42,9 @@ export const videoUploadHandle = async (req, res) => {
 
 // /movies/:id: 영화 상세 정보 페이지 (GET)
 export const videoDetailHandle = async (req, res) => {
-  const result = await Video.findById({ _id: req.params.id }).populate("owner");
+  const result = await Video.findById({ _id: req.params.id })
+    .populate("owner")
+    .populate("comments");
   if (result) {
     return res.render("video_detail", {
       pageTitle: "Video Detail",
@@ -134,4 +137,30 @@ export const registerView = async (req, res) => {
   video.meta.views = video.meta.views + 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const commentHandle = async (req, res) => {
+  const {
+    session: { user },
+    params: { id },
+  } = req;
+  const bodyResult = JSON.parse(req.body);
+  if (String(id) === String(bodyResult.videoid)) {
+    console.log(user, id, bodyResult.videoid, bodyResult.text);
+
+    const video = await Video.findById(id);
+    if (!video) {
+      return res.sendStatus(404);
+    }
+
+    const comment = await Comment.create({
+      text: bodyResult.text,
+      owner: user._id,
+      video: id,
+    });
+    video.comments.push(comment._id);
+    video.save();
+    return res.status(201).json({ newCommentId: comment._id });
+  }
+  return res.end();
 };
