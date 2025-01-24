@@ -16,7 +16,7 @@ videoRouter
   .route("/videos/upload")
   .all(protectorMiddleware)
   .get(videoUploadForm)
-  .post(uploadVideoFiles.single("videofile"), videoUploadHandle);
+  .post(uploadVideoFiles.fields([{ name: "videofile", maxCount: 1 }, { name: "thumbfile", maxCount: 1 }]), videoUploadHandle);
 
 videoRouter.get("/videos/search", videoSearchHandle);
 

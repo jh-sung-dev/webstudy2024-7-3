@@ -1,9 +1,13 @@
 extend templates/layout
+include mixin/videorecorder
 
-block content 
+block content
+  +videorecorder()
   form(method="POST", enctype="multipart/form-data")
     label(for="videofile") Video File
     input(name="videofile", type="file", accept="video/*", id="videofile", required)
+    label(for="thumbfile") Thumbnail File
+    input(name="thumbfile", type="file", accept="image/*", id="thumbfile", required)
     input(name="title", type="text", placeholder="Title", required)
     input(name="description", type="text", placeholder="Description", required)
     input(name="hashtags", type="text", placeholder="Hashtags, separated by comma.", required)

@@ -2,9 +2,12 @@ mixin showvideolist(list)
   div 
     ul 
       each videoinfo in list 
-        li 
-          a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}
-          p #{videoinfo.description}
-          small views #{videoinfo.meta.views}
+        li          
+          a(href=`/videos/${videoinfo._id}`) 
+            div
+              img(src=`/${videoinfo.thumbUrl}`, width="160", height="90") 
+              p #{videoinfo.title}
+              p #{videoinfo.description}
+              small views #{videoinfo.meta.views}
       else 
         li No Contents.

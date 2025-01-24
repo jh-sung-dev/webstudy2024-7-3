@@ -14,6 +14,7 @@ const YOUR_USERNAME = USERNAME; //"jhsung20241230"; //null;
 const videoSchema = mongoose.Schema({
   title: { type: String, required: true, trim: true, maxLength: 40 },
   fileUrl: { type: String, required: true },
+  thumbUrl: { type: String, required: true },
   description: { type: String, required: true, trim: true, maxLength: 80 },
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String }],

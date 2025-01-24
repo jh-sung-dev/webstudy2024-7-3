@@ -14,12 +14,13 @@ export const videoUploadHandle = async (req, res) => {
   } = req.session;
   const {
     body: { title, description, hashtags },
-    file,
+    files: { videofile, thumbfile }
   } = req;
   try {
     const videoinfo = {
       title,
-      fileUrl: file.path,
+      fileUrl: videofile[0].path,
+      thumbUrl: thumbfile[0].path,
       description,
       owner: _id,
       hashtags: hashtags
@@ -167,7 +168,7 @@ export const commentDeleteHandle = async (req, res) => {
   } = req;
   const comment = await Comment.findById(id);
   if (comment && String(comment.owner) === String(user._id)) {
-    await Comment.deleteOne({_id: id});
+    await Comment.deleteOne({ _id: id });
     const video = await Video.findById(comment.video)
     video.comments = video.comments.filter(elem => String(elem) !== String(id));
     await video.save();
