@@ -1,5 +1,6 @@
 extend templates/layout
 include mixin/video
+include mixin/comment
 
 block content
   div
@@ -16,21 +17,7 @@ block content
             a(href=`/videos/${videoinfo._id}/edit`) Edit →   
           li 
             a(href=`/videos/${videoinfo._id}/delete`) Delete →
-  if user
-    div.video__add-comments 
-      form.video_comment-form#commentForm
-        textarea(cors="30", rows="10", placeholder="Write a comment")
-        button Add Comment
-  div.video__comments 
-    ul
-      each comment in videoinfo.comments.reverse() 
-        li.video__comment(data-set=comment.id)
-          span=comment.text          
-          span X
-      else 
-        li No Comments  
+  +commentComponent(user, videoinfo)
 
 block scripts 
   script(src="/static/js/videoPlayer.js")
-  if user
-    script(src="/static/js/commentSection.js")

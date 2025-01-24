@@ -159,3 +159,19 @@ export const commentHandle = async (req, res) => {
   }
   return res.end();
 };
+
+export const commentDeleteHandle = async (req, res) => {
+  const {
+    session: { user },
+    params: { id },
+  } = req;
+  const comment = await Comment.findById(id);
+  if (comment && String(comment.owner) === String(user._id)) {
+    await Comment.deleteOne({_id: id});
+    const video = await Video.findById(comment.video)
+    video.comments = video.comments.filter(elem => String(elem) !== String(id));
+    await video.save();
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(404);
+};

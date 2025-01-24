@@ -1,25 +1,37 @@
 const form = document.getElementById("commentForm");
 
-const addComment = (text, id) => {
-  const videoComments = document.querySelector(".video__comments ul");
-  const newComment = document.createElement("li");
-  newComment.dataset.id = id;
-  newComment.className = "video__comment";
-  const mySpan = document.createElement("span");
-  mySpan.innerText = `${text}`;
-  const mySpanDel = document.createElement("span");
-  mySpanDel.innerText = "X";
-  newComment.appendChild(mySpan);
-  newComment.appendChild(mySpanDel);
-  videoComments.prepend(newComment);
-};
-
 if (form) {
   const videocontainer = document.querySelector("#videoContainer");
   const textarea = form?.querySelector("textarea");
   const btn = form?.querySelector("button");
-
+  const videoComments = document?.querySelector(".video__comments ul");
+  const delbtn = document?.querySelectorAll(".video__comment button");
   const videoid = videocontainer.dataset.videoid;
+
+  const deleteComment = async (event) => {
+    //console.log(event.currentTarget.dataset.commentid, videoid, event.currentTarget.parentElement);
+    const item = event.currentTarget.parentElement;
+    const response = await fetch(`/api/comment/${event.currentTarget.dataset.commentid}`, {
+      method: "DELETE"
+    });
+    if (response.status === 200) {
+      videoComments.removeChild(item);
+    }
+  };
+
+  const addComment = (text, id) => {
+    const newComment = document.createElement("li");
+    newComment.className = "video__comment";
+    const mySpan = document.createElement("span");
+    mySpan.innerText = `${text}`;
+    const myDelBtn = document.createElement("button");
+    myDelBtn.dataset.commentid = id;
+    myDelBtn.innerText = "X";
+    myDelBtn.addEventListener("click", deleteComment);
+    newComment.appendChild(mySpan);
+    newComment.appendChild(myDelBtn);
+    videoComments.prepend(newComment);
+  };
 
   btn?.addEventListener("click", async (event) => {
     event.preventDefault();
@@ -36,4 +48,6 @@ if (form) {
       }
     }
   });
+
+  delbtn.forEach((elem) => elem.addEventListener("click", deleteComment));
 }
