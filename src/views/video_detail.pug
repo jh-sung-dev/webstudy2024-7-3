@@ -17,7 +17,7 @@ block content
             a(href=`/videos/${videoinfo._id}/edit`) Edit →   
           li 
             a(href=`/videos/${videoinfo._id}/delete`) Delete →
-  +commentComponent(user, videoinfo)
+  +commentComponent(videoinfo)
 
 block scripts 
   script(src="/static/js/videoPlayer.js")

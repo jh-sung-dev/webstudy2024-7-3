@@ -9,7 +9,6 @@ if (form) {
   const videoid = videocontainer.dataset.videoid;
 
   const deleteComment = async (event) => {
-    //console.log(event.currentTarget.dataset.commentid, videoid, event.currentTarget.parentElement);
     const item = event.currentTarget.parentElement;
     const response = await fetch(`/api/comment/${event.currentTarget.dataset.commentid}`, {
       method: "DELETE"

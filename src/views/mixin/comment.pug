@@ -1,4 +1,4 @@
-mixin commentComponent(user, videoinfo)
+mixin commentComponent(videoinfo)
   if user
     div.video__add-comments 
       form.video_comment-form#commentForm
@@ -8,6 +8,9 @@ mixin commentComponent(user, videoinfo)
     ul
       each comment in videoinfo.comments.reverse() 
         li.video__comment
-          span=comment.text          
-          button(data-commentId=comment.id) X
+          span=comment.text
+          if user && (comment.owner == user._id)
+            button(data-commentId=comment.id) X
+          else
+            button(data-commentId=comment.id, disabled) X
   script(src="/static/js/commentSection.js")

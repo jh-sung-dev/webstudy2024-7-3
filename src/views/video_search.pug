@@ -1,12 +1,8 @@
 extend templates/layout
+include mixin/showvideolist 
 
 block content
   form(method="GET", action="search")
     input(name="title", type="text", placeholder="search title")
     input(type="submit", value="Search")
-  ul 
-    each videoinfo in videos 
-      li 
-        a(href=`/videos/${videoinfo._id}`) #{videoinfo.title}                
-    else 
-      li No Contents.
+  +showvideolist(videos)

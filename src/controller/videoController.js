@@ -46,6 +46,9 @@ export const videoDetailHandle = async (req, res) => {
   const result = await Video.findById({ _id: req.params.id })
     .populate("owner")
     .populate("comments");
+
+    console.log(result);
+
   if (result) {
     return res.render("video_detail", {
       pageTitle: "Video Detail",
