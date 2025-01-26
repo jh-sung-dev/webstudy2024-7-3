@@ -72,6 +72,7 @@ const handleDownload = async (e) => {
 
   const ffmpeg = new FFmpeg();
 
+  /*
   ffmpeg.on("log", ({ type, message }) => {
     console.log(type, message);
   })
@@ -79,10 +80,11 @@ const handleDownload = async (e) => {
   ffmpeg.on("progress", ({ progress, time }) => {
     console.log(progress, time);
   })
+  //*/
 
   await ffmpeg.load();
   await ffmpeg.writeFile(file.input, await fetchFile(myBinUrl));
-  await ffmpeg.exec(["-i", file.input, "-r", "5", file.output]);
+  await ffmpeg.exec(["-i", file.input, "-r", "30", file.output]);
   await ffmpeg.exec(["-i", file.input, "-ss", "00:00:01", "-frames:v", "1", file.thumb]);
 
   const mp4File = await ffmpeg.readFile(file.output);
@@ -100,13 +102,13 @@ const handleDownload = async (e) => {
   ffmpeg.deleteFile(file.output);
   ffmpeg.deleteFile(file.thumb);
 
-  btn.innerText = 'Start Recording';
-  btn.addEventListener('click', handleStart);
-  btn.disabled = false;
-
   URL.revokeObjectURL(mp4Url);
   URL.revokeObjectURL(imgUrl);
   URL.revokeObjectURL(myBinUrl);
+
+  btn.innerText = 'Start Recording';
+  btn.addEventListener('click', handleStart);
+  btn.disabled = false;
 
   initRec();
 };

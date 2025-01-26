@@ -5,4 +5,4 @@ import "./models/Video";
 import "./models/Comment"
 import { serverStart } from "./server";
 
-serverStart(8090);
+serverStart(3000);

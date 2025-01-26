@@ -10,7 +10,8 @@ mixin showvideolist(list)
                   title #{videoinfo.title}
                   defs
                     pattern(id=`image-${videoinfo._id}`, patternUnits="userSpaceOnUse" width="100%" height="100%")
-                      image(href=`/${videoinfo.thumbUrl}`, x="0" y="0" width="100%" height="100%")                  
+                      //-image(href=`/${videoinfo.thumbUrl}`, x="0" y="0" width="100%" height="100%")                  
+                      image(href=`${videoinfo.thumbUrl}`, x="0" y="0" width="100%" height="100%")
                   rect(width="100%" height="100%" fill="#55595c")
                   rect(width="100%" height="100%", fill=`url(#image-${videoinfo._id})`)
                 div(class="card-body")

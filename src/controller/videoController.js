@@ -17,6 +17,7 @@ export const videoUploadHandle = async (req, res) => {
     files: { videofile, thumbfile }
   } = req;
   try {
+    /* Dev
     const videoinfo = {
       title,
       fileUrl: videofile[0].path,
@@ -28,6 +29,20 @@ export const videoUploadHandle = async (req, res) => {
         .map((elem) => elem.trim())
         .filter((elem) => elem !== "" && elem !== undefined && elem !== null),
     };
+    //*/
+    //* Production
+    const videoinfo = {
+      title,
+      fileUrl: videofile[0].location,
+      thumbUrl: thumbfile[0].location,
+      description,
+      owner: _id,
+      hashtags: hashtags
+        .split(",")
+        .map((elem) => elem.trim())
+        .filter((elem) => elem !== "" && elem !== undefined && elem !== null),
+    };
+    //*/    
     const newVideo = await Video.create(videoinfo);
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
@@ -47,7 +62,7 @@ export const videoDetailHandle = async (req, res) => {
     .populate("owner")
     .populate("comments");
 
-    console.log(result);
+    //console.log(result);
 
   if (result) {
     return res.render("video_detail", {
@@ -85,6 +100,7 @@ export const videoEditHandle = async (req, res) => {
     return res.send(404).redirect("/");
   }  
   const result = await Video.findOne({ _id: req.params.id });
+  /* Dev
   await Video.findByIdAndUpdate(req.params.id, {
     fileUrl: file ? file.path : result.fileUrl,
     title,
@@ -94,6 +110,18 @@ export const videoEditHandle = async (req, res) => {
       .map((elem) => elem.trim())
       .filter((elem) => elem !== "" && elem !== undefined && elem !== null),
   });
+  //*/
+  //* Production
+  await Video.findByIdAndUpdate(req.params.id, {
+    fileUrl: file ? file.location : result.fileUrl,
+    title,
+    description,
+    hashtags: hashtags
+      .split(",")
+      .map((elem) => elem.trim())
+      .filter((elem) => elem !== "" && elem !== undefined && elem !== null),
+  });
+  //*/
   return res.redirect(`/videos/${req.params.id}`);
 };
 

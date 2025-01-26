@@ -9,10 +9,8 @@ module.exports = {
     videoPlayer: BASE_JS + "videoPlayer.js",
     recorder: BASE_JS + "recorder.js",
     commentSection: BASE_JS + "commentSection.js",
-    colormodes: BASE_JS + "colormodes.js",
-    utils: BASE_JS + "utils.js"
+    colormodes: BASE_JS + "colormodes.js"
   },
-  mode: "development",
   output: {
     filename: "js/[name].js",
     path: path.resolve(__dirname, "assets"),
@@ -36,7 +34,5 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
-  },
-  watch: true,
-  stats: { errorDetails: true }
+  }
 };

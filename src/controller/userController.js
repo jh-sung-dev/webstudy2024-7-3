@@ -90,7 +90,7 @@ export const editSubmitHandle = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-
+  /* Dev
   const result = await User.findByIdAndUpdate(
     _id,
     {
@@ -102,6 +102,20 @@ export const editSubmitHandle = async (req, res) => {
     },
     { new: true }
   );
+  //*/
+  //* Production
+  const result = await User.findByIdAndUpdate(
+    _id,
+    {
+      avatarUrl: file ? file.location : avatarUrl,
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  //*/  
   req.session.user = result;
   return res.redirect("/user/edit");
 };
