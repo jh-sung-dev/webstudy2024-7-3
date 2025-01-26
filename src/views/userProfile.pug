@@ -3,4 +3,5 @@ include mixin/showvideolist
 
 block content
   div(class="container")
+    h1 #{user.username}`s videos.
     +showvideolist(user.videos)
