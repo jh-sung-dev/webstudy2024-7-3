@@ -3,12 +3,18 @@ include mixin/video
 include mixin/comment
 
 block content
-  div
-    +videoinfo(videoinfo)
-    small Uploaded by 
-      a(href=`/user/${videoinfo.owner._id}`) #{videoinfo.owner.name}
-  div 
-    nav 
+  +videoinfo(videoinfo)  
+
+  div(class="container")
+    hr
+    div(class="btn-group" role="group" aria-label="Edit Video")
+      a(href=`${backURL}` class="btn btn-outline-primary") Back →
+      if user && (String(videoinfo.owner._id) === String(user._id))
+        a(href=`/videos/${videoinfo._id}/edit` class="btn btn-outline-primary") Edit →
+        a(href=`/videos/${videoinfo._id}/delete` class="btn btn-outline-primary") Delete →
+    hr
+  
+    //-nav 
       ul
         li 
           a(href=`${backURL}`) Back →               
@@ -17,6 +23,7 @@ block content
             a(href=`/videos/${videoinfo._id}/edit`) Edit →   
           li 
             a(href=`/videos/${videoinfo._id}/delete`) Delete →
+
   +commentComponent(videoinfo)
 
 block scripts 

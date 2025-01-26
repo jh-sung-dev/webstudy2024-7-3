@@ -61,9 +61,14 @@ const handleStop = async (e) => {
 };
 
 const handleDownload = async (e) => {
+  const loading = document.createElement("span");
+  loading.className = "spinner-border spinner-border-sm";
+  loading.ariaHidden = true;  
+
   btn.removeEventListener('click', handleDownload);
-  btn.innerText = "Transcoding.....";
+  btn.innerText = " Transcoding...";
   btn.disabled = true;
+  btn.prepend(loading);
 
   const ffmpeg = new FFmpeg();
 

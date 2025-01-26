@@ -14,9 +14,11 @@ div(class="container")
         li 
           a(href="/videos/upload", class="nav-link px-2 link-secondary") Upload
         li 
-          a(href=`/user/${user._id}`, class="nav-link px-2 link-secondary") My Profile - #{user.name}
+          a(href=`/user/${user._id}`, class="nav-link px-2 link-secondary") My Videos
         li 
-          a(href="/user/edit", class="nav-link px-2 link-secondary") Edit Profile
+          a(href="/user/edit", class="nav-link px-2 link-secondary") 
+            span Edit Profile 
+            span [#{user.name}]
 
     if loggedIn 
       button(type="button", class="btn btn-outline-primary me-2", onclick="location.href='/logout';") Logout

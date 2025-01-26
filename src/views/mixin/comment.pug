@@ -1,16 +1,20 @@
 mixin commentComponent(videoinfo)
-  if user
-    div.video__add-comments 
-      form.video_comment-form#commentForm
-        textarea(cors="30", rows="10", placeholder="Write a comment")
-        button Add Comment
-  div.video__comments 
-    ul
-      each comment in videoinfo.comments.reverse() 
-        li.video__comment
-          span=comment.text
-          if user && (comment.owner == user._id)
-            button(data-commentId=comment.id) X
-          else
-            button(data-commentId=comment.id, disabled) X
-  script(src="/static/js/commentSection.js")
+  div(class="container")
+    if user
+      div.video__add-comments
+        form.video_comment-form#commentForm
+          textarea(class="form-control" placeholder="Please Write a nice comment")
+          button(class="btn btn-primary form-control") Add Comment
+
+    br
+
+    div.video__comments 
+      ul(class="list-unstyled")
+        each comment in videoinfo.comments.reverse() 
+          li(class="video__comment m-2 p-2 d-flex justify-content-between border border-dark-subtle rounded")
+            span=comment.text
+            if user && (comment.owner == user._id)
+              button(class="btn btn-secondary" data-commentId=comment.id) X
+            else
+              button(class="btn btn-secondary" data-commentId=comment.id, disabled) X
+    script(src="/static/js/commentSection.js")

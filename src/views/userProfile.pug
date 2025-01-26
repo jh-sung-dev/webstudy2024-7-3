@@ -1,5 +1,6 @@
 extend templates/layout
 include mixin/showvideolist
 
-block content 
-  +showvideolist(user.videos)
+block content
+  div(class="container")
+    +showvideolist(user.videos)

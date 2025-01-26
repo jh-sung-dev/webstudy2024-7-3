@@ -2,13 +2,42 @@ extend templates/layout
 include mixin/videorecorder
 
 block content
-  +videorecorder()
-  form(method="POST", enctype="multipart/form-data")
+  //-form(method="POST" enctype="multipart/form-data")
     label(for="videofile") Video File
-    input(name="videofile", type="file", accept="video/*", id="videofile", required)
+    input(name="videofile" type="file" accept="video/*" id="videofile", required)
     label(for="thumbfile") Thumbnail File
-    input(name="thumbfile", type="file", accept="image/*", id="thumbfile", required)
-    input(name="title", type="text", placeholder="Title", required)
-    input(name="description", type="text", placeholder="Description", required)
-    input(name="hashtags", type="text", placeholder="Hashtags, separated by comma.", required)
-    input(type="submit", value="UPLOAD")
+    input(name="thumbfile" type="file" accept="image/*" id="thumbfile", required)
+    input(name="title" type="text" placeholder="Title", required)
+    input(name="description" type="text" placeholder="Description", required)
+
+    input(name="hashtags" type="text" placeholder="Hashtags, separated by comma.", required)
+    input(type="submit" value="UPLOAD")
+
+  div(class="container")
+    +videorecorder()
+    main
+      div(class="col-md-7 col-lg-8")
+        h4(class="mb-3") Video Upload
+        form(method="POST" class="needs-validation" enctype="multipart/form-data" novalidate)
+          div(class="col-12")
+            label(for="videofile" class="form-label") Video File
+            input(type="file" class="form-control" id="videofile" name="videofile" accept="video/*" required)
+
+          div(class="col-12")
+            label(for="thumbfile" class="form-label") Thumbnail File
+            input(type="file" class="form-control" id="thumbfile" name="thumbfile" accept="image/*" required)
+
+          div(class="col-12")
+            label(for="title" class="form-label") Title
+            input(type="text" class="form-control" id="title" placeholder="Video Title" name="title")
+
+          div(class="col-12")
+            label(for="description" class="form-label") Description
+            input(type="text" class="form-control" id="description" placeholder="Description" name="description")
+
+          div(class="col-12")
+            label(for="hashtags" class="form-label") Hashtags
+            input(type="text" class="form-control" id="hashtags" placeholder="Hashtags, separated by comma." name="hashtags")
+
+          hr(class="my-4")
+          button(class="w-100 btn btn-primary btn-lg" type="submit") UPLOAD

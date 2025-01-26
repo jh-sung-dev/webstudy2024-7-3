@@ -2,4 +2,5 @@ extends templates/layout
 include mixin/showvideolist
 
 block content
-  +showvideolist(videos)
+  div(class="container")
+    +showvideolist(videos)
