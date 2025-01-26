@@ -2,7 +2,7 @@ extend templates/layout
 
 block content
   div(class="container")
-    form(method="POST")
+    //- form(method="POST")
       input(name="title", type="text", placeholder="Title", value=`${videoinfo.title}`, required)
       input(name="description", type="text", placeholder="Description", value=`${videoinfo.description}`,required)
       input(name="hashtags", type="text", placeholder="Hashtags", value=`${videoinfo.hashtags.join()}`, required)
@@ -11,19 +11,19 @@ block content
     main
       div(class="col-md-7 col-lg-8")
         h4(class="mb-3") Video Edit
-        form(method="POST" class="needs-validation" enctype="multipart/form-data")
+        form(method="POST" class="needs-validation")
 
           div(class="col-12")
             label(for="title" class="form-label") Title
-            input(type="text" class="form-control" id="title" placeholder="Video Title" name="title", value=`${videoinfo.title}`)
+            input(type="text" class="form-control" id="title" placeholder="Video Title" name="title", required, value=`${videoinfo.title}`)
 
           div(class="col-12")
             label(for="description" class="form-label") Description
-            input(type="text" class="form-control" id="description" placeholder="Description" name="description", value=`${videoinfo.description}`)
+            input(type="text" class="form-control" id="description" placeholder="Description" name="description", required, value=`${videoinfo.description}`)
 
           div(class="col-12")
             label(for="hashtags" class="form-label") Hashtags
-            input(type="text" class="form-control" id="hashtags" placeholder="Hashtags, separated by comma." name="hashtags", value=`${videoinfo.hashtags.join()}`)
+            input(type="text" class="form-control" id="hashtags" placeholder="Hashtags, separated by comma." name="hashtags", required, value=`${videoinfo.hashtags.join()}`)
 
           hr(class="my-4")
-          button(class="w-100 btn btn-primary btn-lg" type="submit") UPDATE    
+          button(class="w-100 btn btn-primary btn-lg" type="submit") UPDATE

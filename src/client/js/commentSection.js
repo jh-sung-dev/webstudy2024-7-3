@@ -20,10 +20,11 @@ if (form) {
 
   const addComment = (text, id) => {
     const newComment = document.createElement("li");
-    newComment.className = "video__comment m-1 p-1 d-flex justify-content-between border border-dark-subtle rounded";
+    newComment.className = "video__comment m-2 p-2 d-flex justify-content-between border border-dark-subtle rounded";
     const mySpan = document.createElement("span");
     mySpan.innerText = `${text}`;
     const myDelBtn = document.createElement("button");
+    myDelBtn.className = "btn btn-secondary";
     myDelBtn.dataset.commentid = id;
     myDelBtn.innerText = "X";
     myDelBtn.addEventListener("click", deleteComment);

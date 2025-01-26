@@ -81,6 +81,9 @@ export const videoEditForm = async (req, res) => {
 };
 export const videoEditHandle = async (req, res) => {
   const { title, description, hashtags, file } = req.body;
+  if (!req.body) {
+    return res.send(404).redirect("/");
+  }  
   const result = await Video.findOne({ _id: req.params.id });
   await Video.findByIdAndUpdate(req.params.id, {
     fileUrl: file ? file.path : result.fileUrl,
